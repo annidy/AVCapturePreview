@@ -8,10 +8,16 @@
 
 #import "ViewController.h"
 
+@interface ViewController()
+@property (weak) IBOutlet NSLevelIndicator *volumeLevelIndicator;
+@property (assign) NSTimer *audioLevelTimer;
+@end
+
 @implementation ViewController
 {
     AVCaptureSession *_captureSession;
     AVCaptureVideoPreviewLayer *_captureLayer;
+    AVCaptureAudioPreviewOutput *_caputreAudioPreview;
     AVCaptureStillImageOutput *_captureStillImageOutput;
 }
 
@@ -29,6 +35,7 @@
     
     [self initCaptureSession];
     [self setupPreviewLayer];
+    [self setupAuidoPreview];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -101,6 +108,15 @@
             [_captureSession addInput:input];
         }
     }
+    
+    
+    captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+    input = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:&error];
+    if (input) {
+        if ([_captureSession canAddInput:input]) {
+            [_captureSession addInput:input];
+        }
+    }
 }
 
 - (void)setupPreviewLayer
@@ -117,5 +133,35 @@
     if ([_captureSession canAddOutput:_captureStillImageOutput]) {
         [_captureSession addOutput:_captureStillImageOutput];
     }
+}
+
+- (void)setupAuidoPreview
+{
+    _caputreAudioPreview = [[AVCaptureAudioPreviewOutput alloc] init];
+    [_caputreAudioPreview setVolume:0]; // no playback
+    
+    if ([_captureSession canAddOutput:_caputreAudioPreview]) {
+        [_captureSession addOutput:_caputreAudioPreview];
+    }
+    
+    [self setAudioLevelTimer:[NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateAudioLevels:) userInfo:nil repeats:YES]];
+}
+
+- (void)updateAudioLevels:(NSTimer *)timer
+{
+    NSInteger channelCount = 0;
+    float decibels = 0.f;
+    
+    // Sum all of the average power levels and divide by the number of channels
+    for (AVCaptureConnection *connection in _caputreAudioPreview.connections) {
+        for (AVCaptureAudioChannel *audioChannel in [connection audioChannels]) {
+            decibels += [audioChannel averagePowerLevel];
+            channelCount += 1;
+        }
+    }
+    
+    decibels /= channelCount;
+    
+    [[self volumeLevelIndicator] setFloatValue:(pow(10.f, 0.05f * decibels) * 20.0f)];
 }
 @end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -674,13 +674,16 @@
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UEf-XQ-eZ3" customClass="CameraView">
                                 <rect key="frame" x="20" y="61" width="361" height="330"/>
+                                <animations/>
                             </customView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ld7-9W-gMW">
                                 <rect key="frame" x="389" y="61" width="348" height="330"/>
+                                <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="PPa-Ci-8O7"/>
                             </imageView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYk-n9-BzR">
                                 <rect key="frame" x="171" y="19" width="58" height="23"/>
+                                <animations/>
                                 <buttonCell key="cell" type="smallSquare" title="Stop" bezelStyle="smallSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Hq9-GG-dQm">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -691,6 +694,7 @@
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oAz-Gg-Ukz">
                                 <rect key="frame" x="321" y="19" width="60" height="23"/>
+                                <animations/>
                                 <buttonCell key="cell" type="smallSquare" title="Caputre" bezelStyle="smallSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7po-w6-xN6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -701,6 +705,7 @@
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3KM-hB-lXV">
                                 <rect key="frame" x="20" y="19" width="58" height="23"/>
+                                <animations/>
                                 <buttonCell key="cell" type="smallSquare" title="Start" bezelStyle="smallSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kzS-Dw-AOX">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -709,11 +714,18 @@
                                     <action selector="startSession:" target="XfG-lQ-9wD" id="4g8-Zj-tkb"/>
                                 </connections>
                             </button>
+                            <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BoH-YN-Kpa">
+                                <rect key="frame" x="641" y="21" width="96" height="18"/>
+                                <animations/>
+                                <levelIndicatorCell key="cell" alignment="left" doubleValue="1" maxValue="10" warningValue="8" criticalValue="9" id="FGM-kG-5RY"/>
+                            </levelIndicator>
                         </subviews>
+                        <animations/>
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="UEf-XQ-eZ3" id="UeL-Xp-wvh"/>
                         <outlet property="stillImageView" destination="Ld7-9W-gMW" id="pGP-B4-UlY"/>
+                        <outlet property="volumeLevelIndicator" destination="BoH-YN-Kpa" id="IGG-mo-9La"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
